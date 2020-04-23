@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2>Cart for {{request.user.username}}</h2>
+    <div class="jumbotron">
+            <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for key,prod in products.items %}
+                            <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{prod.title}}</td>
+                                <td>${{prod.price}}</td>
+                                <td>
+                                        <form method='POST' action="/cart_remove/{{prod.id}}">{% csrf_token %}
+                                                <button type="submit" class="btn btn-danger" >
+                                                    Remove
+                                                </button>
+                                            </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
+    </div>
+</div>
+
+<div class="container">
+    <div class="container">
+        <h3>Total: ${{total}}</h3>
+    </div>
+        <button type="submit" class="btn btn-danger" >
+                Checkout
+            </button>
+</div>
+
+{% endblock %}

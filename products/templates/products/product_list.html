@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <h1>Product List</h1>
+    
+<!-- Here's your fucking jumbotron -->
+<div class="container">
+    <div class="jumbotron"> 
+        <div class="row">
+            {% for prod in products %}
+                <div class="col-sm-6 col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{prod.title}}</h5>
+                            <p class="card-text">{{prod.description}}</p>
+                            <p class="card-text">{{prod.price}}</p>
+                            <a href='{{prod.get_absolute_url}}' class="btn btn-primary">Edit</a>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-id="{{prod.id}}" data-url="{{prod.get_delete_url}}" data-title="{{prod.title}}" data-target="#exampleModal">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+        
+            {% endfor %}
+        </div>
+    </div>
+    <a href="/products/create" class="btn btn-primary" style="float:right">New Product</a>
+
+</div>
+
+
+    <!-- Button trigger modal -->
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-footer">
+             <form action="{{prod.get_absolute_url}}" method="POST">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <a type="Submit" class="btn btn-danger" id="product_delete">Delete</a>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+    
+    
+
+
+{% endblock %}

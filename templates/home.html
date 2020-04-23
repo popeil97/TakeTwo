@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+{% block content %}
+    <h1>Welcome {{request.user.username}}</h1>
+    <div class="container">
+        <h2>Food Near You</h2>
+        <div class="jumbotron"> 
+                <div class="row">
+                    {% for prod in products %}
+                        <div class="col-sm-6 col-md-4">
+                            <div class="card" style="width: 18rem;">
+                                <img src="..." class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{prod.title}}</h5>
+                                    <p class="card-text">{{prod.description}}</p>
+                                    <p class="card-text">{{prod.price}}</p>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-id="{{prod.id}}" data-type="cart" data-url="{{prod.get_cart_url}}" data-title="{{prod.title}}" data-target="#exampleModal">
+                                            Add to Cart
+                                        </button>
+                                </div>
+                            </div>
+                        </div>
+                
+                    {% endfor %}
+                </div>
+            </div>
+
+
+
+    </div>
+
+
+
+    <div class="container">
+            <h2>Your Listings</h2>
+            <div class="jumbotron"> 
+
+                </div>
+    
+    
+    
+        </div>
+
+
+ <!-- This is really bad coding style, this needs to be exported to a component, but deadlines yahoooooooooooo -->
+ <!-- Also I'd like to thank Bootstrap for this contribution :P -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+        
+                    <div class="modal-footer">
+                     <form action="{{prod.get_absolute_url}}" method="POST">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <a type="Submit" class="btn btn-primary" id="add_to_cart">Add</a>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+{% endblock %}
