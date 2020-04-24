@@ -12,11 +12,11 @@
                     <div class="card" style="width: 18rem;">
                         <img src="{{prod.image}}" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Name: {{prod.title}}</h5>
-                            <p class="card-text">Description: {{prod.description}}</p>
-                            <p class="card-text">{{prod.price}}</p>
+                            <h5 class="card-title">{{prod.title}}</h5>
+                            <p class="card-text">{{prod.description}}</p>
+                            <p class="card-text">${{prod.price}}</p>
                             <p class="card-text">Sold At: {{prod.sold_at}}</p>
-                            <p class="card-text">Vendor: {{prod.added_by}}</p>
+                            <p class="card-text">From {{prod.added_by}}</p>
                             {% if prod.added_by == request.user %}
                             <a href='{{prod.get_absolute_url}}' class="btn btn-primary">Edit</a>
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-id="{{prod.id}}" data-url="{{prod.get_delete_url}}" data-title="{{prod.title}}" data-target="#exampleModal">
