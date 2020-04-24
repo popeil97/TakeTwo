@@ -1,9 +1,9 @@
 {% extends 'index.html' %}
 {% block content %}
-    <h1>Welcome {{request.user.username}}</h1>
     <div class="container">
+        <h1>Welcome back {{request.user.username}}!</h1>
         <h2>Food Near You</h2>
-        <div class="jumbotron"> 
+        <div class="jumbotron">
                 <div class="row">
                     {% for prod in products %}
                         <div class="col-sm-6 col-md-4">
@@ -12,14 +12,14 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{prod.title}}</h5>
                                     <p class="card-text">{{prod.description}}</p>
-                                    <p class="card-text">{{prod.price}}</p>
+                                    <p class="card-text">${{prod.price}}</p>
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-id="{{prod.id}}" data-type="cart" data-url="{{prod.get_cart_url}}" data-title="{{prod.title}}" data-target="#exampleModal">
                                             Add to Cart
                                         </button>
                                 </div>
                             </div>
                         </div>
-                
+
                     {% endfor %}
                 </div>
             </div>
@@ -27,18 +27,6 @@
 
 
     </div>
-
-
-
-    <div class="container">
-            <h2>Your Listings</h2>
-            <div class="jumbotron"> 
-
-                </div>
-    
-    
-    
-        </div>
 
 
  <!-- This is really bad coding style, this needs to be exported to a component, but deadlines yahoooooooooooo -->
@@ -52,7 +40,7 @@
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-        
+
                     <div class="modal-footer">
                      <form action="{{prod.get_absolute_url}}" method="POST">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -62,5 +50,5 @@
                   </div>
                 </div>
               </div>
-    
+
 {% endblock %}

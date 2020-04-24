@@ -1,28 +1,32 @@
 {% extends 'index.html' %}
 
 {% block content %}
-    <h1>Product List</h1>
-    
+
 <!-- Here's your fucking jumbotron -->
 <div class="container">
-    <div class="jumbotron"> 
+  <h1>{{request.user.username}}'s Listings</h1>
+    <div class="jumbotron">
         <div class="row">
             {% for prod in products %}
                 <div class="col-sm-6 col-md-4">
                     <div class="card" style="width: 18rem;">
                         <img src="..." class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">{{prod.title}}</h5>
-                            <p class="card-text">{{prod.description}}</p>
+                            <h5 class="card-title">Name: {{prod.title}}</h5>
+                            <p class="card-text">Description: {{prod.description}}</p>
                             <p class="card-text">{{prod.price}}</p>
+                            <p class="card-text">Sold At: {{prod.sold_at}}</p>
+                            <p class="card-text">Vendor: {{prod.added_by}}</p>
+                            {% if prod.added_by == request.user %}
                             <a href='{{prod.get_absolute_url}}' class="btn btn-primary">Edit</a>
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-id="{{prod.id}}" data-url="{{prod.get_delete_url}}" data-title="{{prod.title}}" data-target="#exampleModal">
                                 Delete
                             </button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-        
+
             {% endfor %}
         </div>
     </div>
@@ -32,7 +36,7 @@
 
 
     <!-- Button trigger modal -->
-      
+
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -54,9 +58,9 @@
         </div>
       </div>
 
-      
-    
-    
+
+
+
 
 
 {% endblock %}

@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 # Create your models here.
 
 class UserManager(BaseUserManager):
-    def create_user(self,username,password=None,is_active=True,is_staff=False,is_admin=False):
+    def create_user(self,username,password=None,is_restaurant=False,is_customer=True,is_active=True,is_staff=False,is_admin=False):
         if not username:
             raise ValueError("Users must have a username alias")
         user = self.model(
@@ -12,6 +12,8 @@ class UserManager(BaseUserManager):
         user.staff = is_staff
         user.admin = is_admin
         user.active = is_active
+        user.restaurant = is_restaurant
+        user.customer = is_customer
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -47,9 +49,23 @@ class User(AbstractBaseUser):
     company = models.CharField(max_length=255,null=True,blank=True)
     admin = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
+    logo = models.ImageField(blank=True)
+
+    #Deduce if user is restaurant or customer
+    restaurant = models.BooleanField(default=False)
+    customer = models.BooleanField(default=True)
+
     objects = UserManager()
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
+
+    @property
+    def is_restaurant(self):
+        return self.restaurant
+
+    @property
+    def is_customer(self):
+        return self.customer
 
     @property
     def is_staff(self):
@@ -58,7 +74,7 @@ class User(AbstractBaseUser):
     @property
     def is_admin(self):
         return self.admin
-    
+
     @property
     def is_active(self):
         return self.active

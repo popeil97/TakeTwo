@@ -1,65 +1,103 @@
+{% load static %}
 <!DOCTYPE html>
-    <html>
-        <head>
-                        <!-- Required meta tags -->
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Agency - Start Bootstrap Theme</title>
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'TakeTwo/css/styles.css' %}" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'home' %}">TakeTwo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav mr-auto">
 
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                {% if request.user.is_authenticated and request.user.is_restaurant %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'event_view' %}">Events<span class="sr-only">(current)</span></a>
+                </li>
 
-            <title>TakeTwo</title>
-            
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'product_list' %}">My Listings<span class="sr-only">(current)</span></a>
+                </li>
+                {% endif %}
 
+                {% if request.user.is_authenticated and request.user.is_customer %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'restaurant_view' %}">Restaurants<span class="sr-only">(current)</span></a>
+                </li>
 
-        </head>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'daily_deals' %}">Deals<span class="sr-only">(current)</span></a>
+                </li>
 
-        <body>
-                <header>
-                        <div class="collapse bg-dark" id="navbarHeader">
-                          <div class="container">
-                            <div class="row">
-                              <div class="col-sm-8 col-md-7 py-4">
-                                <h4 class="text-white">About</h4>
-                                <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-                              </div>
-                              <div class="col-sm-4 offset-md-1 py-4">
-                                <h4 class="text-white">Contact</h4>
-                                <ul class="list-unstyled">
-                                  <li><a href="#" class="text-white">Follow on Twitter</a></li>
-                                  <li><a href="#" class="text-white">Like on Facebook</a></li>
-                                  <li><a href="#" class="text-white">Email me</a></li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="navbar navbar-dark bg-dark shadow-sm">
-                          <div class="container d-flex justify-content-between" style="float:left">
-                            <a href="#" class="navbar-brand d-flex align-items-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                              <strong>Take Two</strong>
-                            </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                              <span class="navbar-toggler-icon"></span>
-                            </button>
-                          </div>
-                        </div>
-                      </header>
-                {% block content %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'view_cart' %}">My Cart<span class="sr-only">(current)</span></a>
+                </li>
+                {% endif %}
 
-                {% endblock %}
- 
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %}">Logout<span class="sr-only">(current)</span></a>
+                </li>
+                {% endif %}
 
-        </body>
+                {% if not request.user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'login' %}">Login <span class="sr-only">(current)</span></a>
+                </li>
+                {% endif %}
+              </ul>
+            </div>
+          </nav>
 
-    </html>
-    
+        {% block content %}
+
+        {% endblock %}
+
+        <!-- Footer-->
+        <footer class="footer py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 text-lg-left">Copyright © Your Website 2020</div>
+                    <div class="col-lg-4 my-3 my-lg-0">
+                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a><a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a><a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="col-lg-4 text-lg-right"><a class="mr-3" href="#!">Privacy Policy</a><a href="#!">Terms of Use</a></div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <!-- Contact form JS-->
+        <script src="{% static 'TakeTwo/assets/mail/jqBootstrapValidation.js' %}"></script>
+        <script src="{% static 'TakeTwo/assets/mail/contact_me.js' %}"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'TakeTwo/js/scripts.js' %}"></script>
+
     <script>
-      
+
             $('#exampleModal').on('show.bs.modal', function (event) {
                   var button = $(event.relatedTarget) // Button that triggered the modal
                   console.log(button.name)
@@ -85,16 +123,18 @@
                     $('#product_delete').attr("href", url);
                     modal.find('.modal-title').text(text + 'to delete ' + title);
                   }
-                  
+
                   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
                   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-                  
-                  
+
+
                 //   modal.find('.modal-body input').val(recipient)
                });
 
             $('#product_delete').on('click',function(event) {
                 console.log("DELETE CLICKED");
             })
-            
+
             </script>
+          </body>
+      </html>

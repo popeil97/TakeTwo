@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<!-- Here's your fucking jumbotron -->
+<div class="container">
+  <h1>Events</h1>
+    <div class="jumbotron">
+        <div class="row">
+            {% for event in events %}
+                <div class="col-sm-6 col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{event.title}}</h5>
+                            <p class="card-text">{{event.description}}</p>
+                            <p class="card-text">{{event.location}}</p>
+                            <p class="card-text">{{event.university}}</p>=
+                            <form method='POST' action="/products/create/{{event.id}}">{% csrf_token %}
+                                    <button type="submit" class="btn btn-success" >
+                                        Add Listing
+                                    </button>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+{% endblock %}

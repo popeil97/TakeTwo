@@ -3,8 +3,10 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, get_user_model,login,logout
 from .models import CartItem
 from products.models import Product
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required
 def add_to_cart(request,prod_id):
     item = CartItem(
         username = request.user.username,
@@ -15,6 +17,7 @@ def add_to_cart(request,prod_id):
 
     return redirect('/home')
 
+@login_required
 def cart_list_view(request):
     cart = CartItem.objects.filter(username=request.user.username)
     prod_ids = [item.productID for item in cart]
@@ -26,7 +29,7 @@ def cart_list_view(request):
         'products':products,
         'total': total
     }
-    
+
     print(products)
     return render(request,'cart/cart_list_view.html', context)
 
