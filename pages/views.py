@@ -9,3 +9,6 @@ def home_view(request, *args, **kwargs):
         'products': products
     }
     return render(request, "home.html", context)
+
+def welcome_view(request):
+    return render(request,"welcome.html",{})

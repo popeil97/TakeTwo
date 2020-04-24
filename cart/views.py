@@ -37,3 +37,8 @@ def delete_cart_item(request, prod_id):
     cart_item.delete()
 
     return redirect('/cart')
+
+def checkout(request):
+    CartItem.objects.filter(username=request.user.username).delete()
+
+    return redirect('/home')

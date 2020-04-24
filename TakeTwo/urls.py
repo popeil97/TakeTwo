@@ -17,14 +17,15 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path
-from pages.views import home_view
+from pages.views import home_view, welcome_view
 from products.views import product_edit_view, product_create_view, product_list_view, product_delete
 from accounts.views import login_view, register_view
-from cart.views import add_to_cart, cart_list_view, delete_cart_item
+from cart.views import add_to_cart, cart_list_view, delete_cart_item,checkout
 
 
 urlpatterns = [
     path('home/', home_view, name='home'),
+    path('', welcome_view, name='welcome'),
     path('products/<int:id>', product_edit_view, name='product'),
     path('products/delete/<int:id>', product_delete, name='delete'),
     path('products/', product_list_view, name='productList'),
@@ -35,6 +36,7 @@ urlpatterns = [
     path('cart/<int:prod_id>', add_to_cart, name='add_to_cart'),
     path('cart/', cart_list_view, name='view_cart'),
     path('cart_remove/<int:prod_id>', delete_cart_item, name='remove_from_cart'),
+    path('cart/checkout', checkout, name='checkout'),
 ]
 
 if settings.DEBUG:
