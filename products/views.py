@@ -49,12 +49,17 @@ def product_create_view(request, event_id=None):
         if form.is_valid() and request.user.is_restaurant:
             obj = form.cleaned_data
 
+            
+
             img = request.FILES['image']
-            obj['added_by'] = request.user
-            obj['image'] = img.name
 
             fs = FileSystemStorage()
             fs.save(img.name,img)
+
+            obj['added_by'] = request.user
+            obj['image'] = fs.url(img.name)
+
+            
 
             Product.objects.create(**obj)
 
